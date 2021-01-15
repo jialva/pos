@@ -19,6 +19,7 @@
 					Session::set('usuario',$datos['usuario']);
 					Session::set('nombre',$datos['nombre']);
 					Session::set('idrol',$datos['idrol']);
+					Session::set('idusuario',$datos['idusuario']);
 					$data['mensaje'] ='Ingresando al sistema';
 					$data['res']=1;
 				}else{

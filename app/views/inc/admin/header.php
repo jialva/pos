@@ -69,11 +69,11 @@
                         <div class="container-fluid">
                             <a class="brand" href="inicio"><i class="icon-home icon-white"></i> Siincoweb POS</a>
                             <ul class="nav user_menu pull-right">
-                                <li class="hidden-phone hidden-tablet">
+                                <!--<li class="hidden-phone hidden-tablet">
                                     <div class="nb_boxes clearfix">
                                         <a data-toggle="modal" data-backdrop="static" href="#myMail" class="label ttip_b" title="New messages">25 <i class="splashy-warning_triangle"></i></a>
                                     </div>
-                                </li>
+                                </li>-->
                                 <li class="divider-vertical hidden-phone hidden-tablet"></li>
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?=Session::get('nombre')?> <b class="caret"></b></a>

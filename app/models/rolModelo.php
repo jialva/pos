@@ -87,5 +87,20 @@
 			}
 		}
 
+		public function eliminar($idrol){
+			$this->db->query("SELECT estado FROM usuario WHERE idrol=$idrol");
+			$items = $this->db->registers();
+			if(empty($items)){
+				$this->db->query("DELETE FROM rol WHERE idrol=$idrol");
+				if($this->db->execute()){
+					return 1;
+				}else{
+					return 0;
+				}
+			}else{
+				return 2;
+			}
+		}
+
 	}
 ?>

@@ -234,5 +234,23 @@
 			echo $sql;
 		}
 
+		public function eliminar(){
+			$idrol = $_POST['idrol'];
+			$sql = $this->rol->eliminar($idrol);
+			$ok=0;
+			$message = '';
+			switch ($sql) {
+				case 0:$ok=0;$message="Ocurrio un error al eliminar!!!";break;
+				case 1:$ok=1;$message="El registro fue eliminado!!!";break;
+				case 2:$ok=2;$message="No se puede eliminar, el registro se encuentra en uso!!!";break;
+				default :$ok=0;$message="Ocurrio un error inesperado!!!";break;
+			}
+			$arr = [
+				'ok'=>$ok,
+				'message'=>$message
+			];			
+			echo json_encode($arr);
+		}
+
 	}
 ?>

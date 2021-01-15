@@ -97,6 +97,7 @@ function addusuariorol(){
 }
 
 function meliminar(idrol){
+	$("#idrol").val(idrol)
 	$.ajax({
 		url:url+'rol/verregistro',
 		type:'post',
@@ -108,6 +109,24 @@ function meliminar(idrol){
 			modal('myModal2','open');
 		}
 	})
+}
+
+function eliminar(){
+	var idrol = $("#idrol").val();
+	$.ajax({
+		url:url+'rol/eliminar',
+		type:'post',
+		data:{idrol:idrol},
+		dataType:'json',
+		success:function(response){
+			switch(parseFloat(response.ok)){
+				case 0:alertify.error(response.message);break;
+				case 1:alertify.success(response.message);grilla();modal('myModal2','close');;break;
+				case 2:alertify.error(response.message);break;
+				default:alertify.error("Ocurrio un error inesperado al eliminar");break;
+			}
+		}
+	});
 }
 
 function quitarusuario(idusuario,idrol){
