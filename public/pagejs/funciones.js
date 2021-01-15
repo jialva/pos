@@ -1,6 +1,46 @@
 $(function(){
     //CargarCaptcha();
 })
+
+function modal(div,op){
+  if(op == 'open'){
+    $("#"+div).css('display','block');
+  }else{
+    if(op == 'close'){
+      $("#"+div).css('display','none');
+    }
+  }  
+}
+
+function correovalido(email){
+    var caract = new RegExp(/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/);
+    if (caract.test(email) == false){
+        return false;
+    }else{
+        return true;
+    }
+}
+
+function tabla(id){
+  $('#'+id).dataTable({
+        "sDom": "<'row'<'span6'<'dt_actions'>l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
+        "sPaginationType": "bootstrap_alt",
+        "oLanguage": {
+            "sLengthMenu": "_MENU_ registros por pag",
+            "sInfoEmpty": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+            "sInfo": "Mostrando_START_ a _END_ de _TOTAL_ Entradas",
+            "sSearch": "Buscar:",
+            "sZeroRecords": "Sin resultados encontrados",
+            "oPaginate": {
+              "sFirst": "Primero",
+              "sLast": "Ultimo",
+              "sNext": "Siguiente",
+              "sPrevious": "Anterior"
+            }
+        }
+    });
+}
+
 function CargarCaptcha() {
      $.ajax({
     url: 'configuracion/captcha',

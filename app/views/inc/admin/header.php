@@ -27,6 +27,8 @@
         <!-- stylos principales -->
             <link rel="stylesheet" href="css/style.css" />          
             <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans" />
+            
+            <link rel="stylesheet" href="lib/smoke/themes/gebo.css" />
         <!-- Favicon -->
             <link rel="shortcut icon" href="img/sw.ico" />
         
@@ -38,8 +40,9 @@
 
         <link rel="stylesheet" href="alertify/alertify.min.css"/>
         <link rel="stylesheet" href="alertify/default.min.css"/>
-
-        <script src="js/jquery.js"></script>
+        <link href = "js/query/jquery-ui.css" rel = "stylesheet">        
+        <script src = "js/query/jquery-1.10.2.js"></script>
+        <script src = "js/query/jquery-ui.js"></script>
         <script type="text/javascript" src="<?=BASE_URL?>pagejs/funciones.js"></script>
 
         <?php if(count($js)>=1){

@@ -39,7 +39,7 @@
 	    }
 
 	    public function select($tabla,$campo,$idtabla,$estado,$sql,$select = false){
-			$this->selectModel = $this->model('funciones');
+			$this->selectModel = $this->model('funcionesModelo');
 			$sel = $this->selectModel->select($tabla,$estado,$sql);
 			$com = '<option value="0">--Seleccionar--</option>';
 			if(!empty($sel)){
@@ -56,6 +56,17 @@
 				}				
 			}
 			return $com;
+		}
+
+		public function existe($dato,$tabla,$campo,$sql){
+			$this->selectModel = $this->model('funcionesModelo');
+			$sel = $this->selectModel->existe($dato,$tabla,$campo,$sql);
+			if(empty($sel)){
+				$x = '';
+			}else{
+				$x=1;
+			}
+			return $x;
 		}
 
 	    protected function library($libreria){
@@ -80,8 +91,8 @@
 		public function menu(){
 			Session::set('menucreado',false);
 			if(Session::get('autenticado')){
-				$this->menuModel = $this->model('funciones');
-				$menu = $this->menuModel->menu(Session::get('idrol'));
+				$this->menuModel = $this->model('funcionesModelo');
+				$menu = $this->menuModel->menu(Session::get('idrol'),Session::get('idusuario'));
 				Session::set('menu',$menu);
 				Session::set('menucreado',false);
 			}
@@ -139,7 +150,7 @@
 
 	
 		public function save($data,$tabla){
-			$this->saveModel = $this->model('funciones');
+			$this->saveModel = $this->model('funcionesModelo');
 			$campos ='';
 			$valor ='';
 			$objeto = (object) $data;
@@ -153,7 +164,7 @@
 		}
 
 		public function update($data,$tabla){
-			$this->saveModel = $this->model('funciones');
+			$this->saveModel = $this->model('funcionesModelo');
 			$campos ='';
 			$valor ='';
 			$where='';

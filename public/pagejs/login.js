@@ -16,7 +16,7 @@ function ingresar(){
     return;
   }
   $.ajax({
-    url:url+'usuario/validar',
+    url:url+'funciones/validarusuario',
     type:'post',
     data:{usuario:usuario,password:password},
     dataType:'json',

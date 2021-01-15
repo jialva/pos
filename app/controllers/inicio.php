@@ -3,13 +3,13 @@
 
 		public function __construct(){
 	      if(Session::get('autenticado')){
-				$this->functionModel = $this->model('funciones');
+				//$this->functionModel = $this->model('funcionesModelo');
 				$this->menu();
 
 	      	}else{
 	       		$this->redireccionar();
 	      	}
-			}
+		}
 
 	    public function index(){
 			$date=[

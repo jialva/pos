@@ -1,15 +1,10 @@
 <?php
-	class funciones{
+	class funcionesModelo{
 		private $db;
 
 		public function __construct()
 		{
 			$this->db = new DataBase;
-		}
-
-		public function edificio($idedificio){
-			$this->db->query("SELECT * FROM edificio WHERE idedificio=$idedificio");
-			return $this->db->register();
 		}
 
 		public function validar($usuario){
@@ -27,18 +22,13 @@
 			return $this->db->registers();
 		}
 
-		public function agregar(){
-			$this->db->query("");
-			$this->b->execute();
-		}
-
-		public function menu($idrol){
+		public function menu($idrol,$idusuario){
 			$this->db->query("SELECT m.idmodulo,mp.modulo as padre,m.modulo,m.modulo_padre,mp.orden,m.orden ordenmenu,m.url,mp.icono,p.ver,p.editar,p.crear,p.eliminar
 				FROM modulo m
 				INNER JOIN permisos p ON m.idmodulo=p.idmodulo
 				INNER JOIN rol r ON r.idrol=p.idrol
 				INNER JOIN modulo mp ON m.modulo_padre=mp.idmodulo
-				where r.idrol=$idrol
+				where r.idrol=$idrol AND p.idusuario=$idusuario
 				order by mp.orden,m.orden ASC");
 			return $this->db->registers();
 		}
@@ -94,7 +84,7 @@
 		}
 
 		public function select($tabla,$estado,$sql=''){
-			$this->db->query("SELECT * FROM $tabla WHERE estareg in ($estado) $sql");
+			$this->db->query("SELECT * FROM $tabla WHERE estado in ($estado) $sql");
 			return $this->db->registers();
 		}
 
@@ -126,14 +116,5 @@
 			return $id[0];
 		}
 
-		public function eliminarasignaciones($id_ui){
-			$this->db->query("UPDATE asignacion SET id_ui=0, porcentaje=0, area=0 WHERE id_ui=$id_ui");
-			if($this->db->execute()){
-				$b=1;
-			}else{
-				$b=0;
-			}
-			return $b;
-		}
 	}
 ?>

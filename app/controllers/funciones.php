@@ -1,12 +1,36 @@
 <?php
 	
-	class configuracion extends Controller{
+	class funciones extends Controller{
 
 		public function __construct(){
-			$this->funcionesModel = $this->model('funciones');
+			$this->funcionesModel = $this->model('funcionesModelo');
 		}
 
 		public function index(){}
+
+		public function validarusuario(){
+			$usuario = strtoupper($_POST['usuario']);
+			$password = trim($_POST['password']);
+			$datos = $this->funcionesModel->validar(trim($usuario));
+			$pass = strtoupper(trim($password));
+			if(!empty($datos)){
+				if($pass === $this->desencriptar($datos['password'])){
+					Session::set('autenticado',true);
+					Session::set('usuario',$datos['usuario']);
+					Session::set('nombre',$datos['nombre']);
+					Session::set('idrol',$datos['idrol']);
+					$data['mensaje'] ='Ingresando al sistema';
+					$data['res']=1;
+				}else{
+					$data['mensaje'] ='La clave es incorrecta';
+					$data['res']=2;
+				}
+			}else{
+				$data['mensaje'] ='El usuario ingresado no existe';
+				$data['res']=3;
+			}
+			echo json_encode($data);
+		}
 
 		public function captcha(){
 			//require BASE_URL.'library/classphp/PasswordLib/PasswordLib.php';

@@ -2,16 +2,18 @@
 	class usuario extends Controller{
 
 		public function __construct(){
-			$this->usuario = $this->model('usuarioModelo');
+			if(Session::get('autenticado')){
+				$this->usuario = $this->model('usuarioModelo');
+				$this->menu();
+	      	}else{
+	       		$this->redireccionar();
+	      	}
 		}
 
-		public function index(){
-			$rol = $this->select('rol','rol','idrol',1,'');
-	    	
+		public function index(){	    	
 			$date=[
 				'titulo'=>'Administrar Usuarios',
 				'nombretabla'=>'Administrar Usuarios',
-				'select'=> $rol,
 				'url'=> 'usuario',
 				'modulo'=> 'Seguridad'
 			];
@@ -20,6 +22,17 @@
 	      	];
 			$this->viewAdmin('usuario/index',$js,$date);
 		}
+
+		public function autocomplete(){
+        $search = $_GET['search'];
+        $opcion = $_GET['opcion'];
+        $resp = $this->usuario->autocomplete($search,$opcion);
+        $var = [];
+        foreach ($resp as $row) {
+            $var[]=$row;
+        }
+        echo json_encode($var);
+    }
 
 		public function tabla(){
 			$items = $this->usuario->tabla();
@@ -36,42 +49,94 @@
                         </thead>
                         <tbody>';
                         foreach ($items as $row) {
-                        $cad .='<td>'.$c.'</td>
-                                <td>'.utf8_encode($row['nombre'].' '.$row['apellido']).'</td>
-                                <td>'.$row['telefono'].'</td>
-                                <td>'.$row['email'].'</td>
-                                <td>
-                                	<i class="splashy-application_windows_edit pointer"></i>
-                                	<i class="splashy-application_windows_remove pointer"></i>
-                                </td>';
+                        $cad .='<tr>
+                        			<td>'.$c.'</td>
+	                                <td>'.utf8_encode($row['nombre'].' '.$row['apellido']).'</td>
+	                                <td>'.$row['telefono'].'</td>
+	                                <td>'.$row['email'].'</td>
+	                                <td>
+	                                	<i class="splashy-application_windows_edit pointer" onclick="editar(\''.$row['idusuario'].'\')"></i>
+	                                	<i class="splashy-application_windows_remove pointer" onclick="meliminar(\''.$row['idusuario'].'\')"></i>
+	                                </td>
+	                            </tr>';
+	                            $c++;
                         }
                 $cad .='</tbody>
 					</table>';
 			echo $cad;
 		}
 
-		public function validar(){
-			$usuario = strtoupper($_POST['usuario']);
-			$password = trim($_POST['password']);
-			$datos = $this->usuario->validardatos(trim($usuario));
-			$pass = strtoupper(trim($password));
-			if(!empty($datos)){
-				if($pass === $this->desencriptar($datos['password'])){
-					Session::set('autenticado',true);
-					Session::set('usuario',$datos['usuario']);
-					Session::set('nombre',$datos['nombre']);
-					Session::set('idrol',$datos['idrol']);
-					$data['mensaje'] ='Ingresando al sistema';
-					$data['res']=1;
+		public function guardar(){
+			$idusuario = $_POST['idusuario'];
+			$nombres = $_POST['nombres'];
+			$apellidos = $_POST['apellidos'];
+			$telefono = $_POST['telefono'];
+			$email = $_POST['email'];
+			$usuario = $_POST['usuario'];
+			$password = $_POST['password'];
+			if($idusuario == ''){
+				$sql = $this->usuario->validardatos($usuario);
+				if(empty($sql)){
+					$data = [
+								'codemp'=>1,
+								'codsuc'=>1,
+								'nombre'=>$nombres,
+								'apellido'=>$apellidos,
+								'telefono'=>$telefono,
+								'email'=>$email,
+								'usuario'=>$usuario,
+								'password'=>$this->encriptar($password),
+								'fecha_reg'=>date('Y-m-d'),
+								'estado'=>1
+							];
+					$sql = $this->save($data,'usuario');
+					if($sql==1){
+						$arr = [
+							'ok'=>1,
+							'message'=>'Usuario registrado!!!'
+						];
+					}else{
+						$arr = [
+							'ok'=>0,
+							'message'=>'Error al registrar!!!'
+						];
+					}
 				}else{
-					$data['mensaje'] ='La clave es incorrecta';
-					$data['res']=2;
+					$arr = [
+							'ok'=>3,
+							'message'=>'El usuario ingresado ya existe'
+						];
 				}
 			}else{
-				$data['mensaje'] ='El usuario ingresado no existe';
-				$data['res']=3;
+				$data = [
+							'idusuario'=>$idusuario,
+							'nombre'=>$nombres,
+							'apellido'=>$apellidos,
+							'telefono'=>$telefono,
+							'email'=>$email,
+						];
+				$sql = $this->update($data,'usuario');
+				if($sql==2){
+					$arr = [
+						'ok'=>1,
+						'message'=>'Usuario actualizado!!!'
+					];
+				}else{
+					$arr = [
+						'ok'=>0,
+						'message'=>'Error al actualizar!!!'
+					];
+				}
 			}
-			echo json_encode($data);
+			echo json_encode($arr);
+		}
+
+		public function verregistro(){
+			$idusuario = $_POST['idusuario'];
+			$sql = $this->usuario->verregistro($idusuario);
+			$arr =['nombres'=>$sql['nombre'],'apellido'=>$sql['apellido'],'telefono'=>$sql['telefono'],'email'=>$sql['email'],
+					'usuario'=>$sql['usuario'],'password'=>$this->desencriptar($sql['password'])];
+			echo json_encode($arr);
 		}
 
 		public function salir(){
