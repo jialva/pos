@@ -1,9 +1,8 @@
 <?php
-	class rol extends Controller{
+	class modulo extends Controller{
 
 		public function __construct(){
 			if(Session::get('autenticado')){
-				$this->rol = $this->model('rolModelo');
 				$this->menu();
 	      	}else{
 	       		$this->redireccionar();
@@ -11,29 +10,31 @@
 		}
 
 		public function index(){
-			$rol = $this->select('rol','rol','idrol',1,'');
-	    	
+	    	$mp = $this->select('modulo','modulo','modulo_padre',1,' AND modulo_padre IN(0,1) ');
 			$date=[
-				'titulo'=>'Administrar Roles',
-				'nombretabla'=>'Administrar Roles',
-				'select'=> $rol,
-				'url'=> 'rol',
+				'titulo'=>'Administrar Módulo',
+				'nombretabla'=>'Administrar Módulos',
+				'url'=> 'modulo',
+				'mp'=>$mp,
 				'modulo'=> 'Seguridad'
 			];
 			$js = [
-	      		'0'=>'rol.js'
+	      		'0'=>'modulo.js'
 	      	];
-			$this->viewAdmin('rol/index',$js,$date);
+			$this->viewAdmin('modulo/index',$js,$date);
 		}
 
 		public function tabla(){
-			$items = $this->rol->tabla();
+			$codemp = 1;
+			$items = $this->verregistros('modulo','estado=1 AND codemp='.$codemp);
 			$c=1;
 			$cad = '<table class="table table-striped table-bordered dTableR" id="grilla">
 						<thead>
                             <tr>
                                 <th width="10">Item</th>
-                                <th width="200">Rol</th>
+                                <th width="80">M&oacute;dulo</th>
+                                <th width="80">URL</th>
+                                <th width="80">Icono</th>
                                 <th width="20">Acci&oacute;n</th>
                             </tr>
                         </thead>
@@ -41,11 +42,12 @@
                         foreach ($items as $row) {
                         $cad .='<tr>
                         			<td>'.$c.'</td>
-	                                <td>'.$row['rol'].'</td>
+	                                <td>'.$row['modulo'].'</td>
+	                                <td>'.$row['url'].'</td>
+	                                <td>'.$row['icono'].'</td>
 	                                <td>
-	                                	<i title="Editar" class="splashy-application_windows_edit pointer" onclick="editar(\''.$row['idrol'].'\')"></i>
-	                                	<i title="Asignar rol" class="splashy-contact_blue_add pointer" onclick="magregarusuario(\''.$row['idrol'].'\')"></i>
-	                                	<i title="Eliminar rol" class="splashy-application_windows_remove pointer" onclick="meliminar(\''.$row['idrol'].'\')"></i>
+	                                	<i title="Editar" class="splashy-application_windows_edit pointer" onclick="editar(\''.$row['idmodulo'].'\')"></i>
+	                                	<i title="Eliminar rol" class="splashy-application_windows_remove pointer" onclick="meliminar(\''.$row['idmodulo'].'\')"></i>
 	                                </td>
 	                            </tr>';
 	                            $c++;
@@ -56,24 +58,32 @@
 		}
 
 		public function guardar(){
-			$idrol = $_POST['idrol'];
-			$rol = $_POST['rol'];
+			$idmodulo = $_POST['idmodulo'];
+			$modulo = $_POST['modulo'];
+			$modulo_padre = $_POST['modulo_padre'];
+			$url = $_POST['url'];
+			$icono = $_POST['icono'];
+			$orden = $_POST['orden'];
 			$codemp = 1;
 			$codsuc = 1;
-			if($idrol == ''){
-				$sql = $this->existe($rol,'rol','rol','AND codsuc='.$codsuc);
+			if($idmodulo == ''){
+				$sql = $this->existe($modulo,'modulo','modulo','AND codemp='.$codemp);
 				if(empty($sql)){
 					$data = [
-								'codemp'=>1,
-								'codsuc'=>1,
-								'rol'=>$rol,
+								'modulo'=>$modulo,
+								'modulo_padre'=>$modulo_padre,
+								'url'=>$url,
+								'icono'=>$icono,
+								'orden'=>$orden,
+								'codemp'=>$codemp,
+								'codsuc'=>$codsuc,
 								'estado'=>1
 							];
-					$sql = $this->save($data,'rol');
+					$sql = $this->save($data,'modulo');
 					if($sql==1){
 						$arr = [
 							'ok'=>1,
-							'message'=>'Rol registrado!!!'
+							'message'=>'Registrado!!!'
 						];
 					}else{
 						$arr = [
@@ -84,19 +94,23 @@
 				}else{
 					$arr = [
 							'ok'=>3,
-							'message'=>'El rol ingresado ya existe'
+							'message'=>'El modulo ingresado ya existe'
 						];
 				}
 			}else{
 				$data = [
-							'idrol'=>$idrol,
-							'rol'=>$rol
+							'idmodulo'=>$idmodulo,
+							'modulo'=>$modulo,
+							'modulo_padre'=>$modulo_padre,
+							'url'=>$url,
+							'icono'=>$icono,
+							'orden'=>$orden
 						];
-				$sql = $this->update($data,'rol');
+				$sql = $this->update($data,'modulo');
 				if($sql==2){
 					$arr = [
 						'ok'=>1,
-						'message'=>'Rol actualizado!!!'
+						'message'=>'Actualizado!!!'
 					];
 				}else{
 					$arr = [
@@ -109,9 +123,16 @@
 		}
 
 		public function verregistro(){
-			$idrol = $_POST['idrol'];
-			$sql = $this->rol->tabla($idrol);
-			$arr =['rol'=>$sql[0]['rol']];
+			$idmodulo = $_POST['idmodulo'];
+			$codemp = 1;
+			$sql = $this->verregistros('modulo','idmodulo='.$idmodulo.' AND codemp='.$codemp);
+			$arr =[
+				'modulo'=>$sql[0]['modulo'],
+				'modulo_padre'=>$sql[0]['modulo_padre'],
+				'url'=>$sql[0]['url'],
+				'icono'=>$sql[0]['icono'],
+				'orden'=>$sql[0]['orden']
+			];
 			echo json_encode($arr);
 		}
 
@@ -165,7 +186,7 @@
 						<ul class="nav nav-tabs">
 			                <li class="active"><a href="#tab_0" data-toggle="tab">Inicio</a></li>';
 			            foreach ($modulos as $row) {
-			            	$html .='<li><a href="#tab_'.$row['idmodulo'].'" data-toggle="tab">'.$row['modulo'].'</a></li>';
+			            	$html .='<li><a href="#tab_'.$row['idmodulo'].'" data-toggle="tab">'.utf8_encode($row['modulo']).'</a></li>';
 			            }
 			    $html .='</ul>
 			    		<div class="tab-content">

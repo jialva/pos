@@ -17,8 +17,8 @@
 			return $this->db->register();
 		}
 
-		public function verregistros($tabla,$idtabla,$id,$sql){
-			$this->db->query("SELECT * FROM $tabla WHERE $idtabla=$id $sql");
+		public function verregistros($tabla,$sql){
+			$this->db->query("SELECT * FROM $tabla WHERE $sql");
 			return $this->db->registers();
 		}
 

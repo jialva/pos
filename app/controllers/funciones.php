@@ -12,7 +12,7 @@
 			$usuario = strtoupper($_POST['usuario']);
 			$password = trim($_POST['password']);
 			$datos = $this->funcionesModel->validar(trim($usuario));
-			$pass = strtoupper(trim($password));
+			$pass = trim($password);
 			if(!empty($datos)){
 				if($pass === $this->desencriptar($datos['password'])){
 					Session::set('autenticado',true);

@@ -42,6 +42,7 @@
                             <tr>
                                 <th>Item</th>
                                 <th>Nombres</th>
+                                <th>Rol</th>
                                 <th>Tel&eacute;fono</th>
                                 <th>Email</th>
                                 <th>Acci&oacute;n</th>
@@ -52,6 +53,7 @@
                         $cad .='<tr>
                         			<td>'.$c.'</td>
 	                                <td>'.utf8_encode($row['nombre'].' '.$row['apellido']).'</td>
+	                                <td>'.$row['rol'].'</td>
 	                                <td>'.$row['telefono'].'</td>
 	                                <td>'.$row['email'].'</td>
 	                                <td>

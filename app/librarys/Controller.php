@@ -69,6 +69,12 @@
 			return $x;
 		}
 
+		public function verregistros($tabla,$sql){
+			$this->funciones = $this->model('funcionesModelo');
+			$sel = $this->funciones->verregistros($tabla,$sql);
+			return $sel;
+		}
+
 	    protected function library($libreria){
 	      $rutaLibreria = BASE_URL.'library/'.$libreria.'.php';
 	      if(is_readable($rutaLibreria)){

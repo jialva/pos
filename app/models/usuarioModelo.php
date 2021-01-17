@@ -8,7 +8,8 @@
 		}
 
 		public function tabla(){
-			$this->db->query("SELECT * FROM usuario WHERE estado = 1 ORDER BY idusuario DESC");
+			$this->db->query("SELECT u.*,r.rol FROM usuario u
+							LEFT JOIN rol r ON r.idrol=u.idrol WHERE u.estado = 1 AND u.idrol<>1 ORDER BY u.idusuario DESC");
 	      	return $this->db->registers();
 		}
 
