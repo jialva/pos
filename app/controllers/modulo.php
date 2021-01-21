@@ -4,13 +4,16 @@
 		public function __construct(){
 			if(Session::get('autenticado')){
 				$this->menu();
+				if(!$this->acceso(Session::get('idrol'),Session::get('idusuario'),Session::get('url'))){
+					$this->redireccionar('errors/denegado');
+				}
 	      	}else{
 	       		$this->redireccionar();
 	      	}
 		}
 
 		public function index(){
-	    	$mp = $this->select('modulo','modulo','modulo_padre',1,' AND modulo_padre IN(0,1) ');
+	    	$mp = $this->select('modulo','modulo','idmodulo',1,' AND modulo_padre IN(0,1) ');
 			$date=[
 				'titulo'=>'Administrar Módulo',
 				'nombretabla'=>'Administrar Módulos',

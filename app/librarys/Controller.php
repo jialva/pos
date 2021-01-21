@@ -26,6 +26,16 @@
 			}
 		}
 
+		public function viewError($view,$date=[]){
+			if(file_exists('../app/views/page/'.$view.'.php')){
+				require_once '../app/views/inc/error/header.php';
+				require_once '../app/views/page/'.$view.'.php';
+				require_once '../app/views/inc/error/footer.php';
+			}else{
+				die('Vista no creada');
+			}
+		}
+
 		public function redireccionar($ruta = false){
 	      if($ruta){
 	      	if($ruta=='salir'){
@@ -224,4 +234,9 @@
 			return $arr[2].'-'.$arr[1].'-'.$arr[0];
 		}
 
+		public function acceso($idrol,$idusuario,$url){
+			$acceso = $this->model('funcionesModelo');
+			$val = $acceso->acceso($idrol,$idusuario,$url);
+			return $val;
+		}
 }

@@ -10,9 +10,13 @@
 			if(!empty($url[0])){
 				if(file_exists('../app/controllers/'.$url[0].'.php')){
 					$this->controller = $url[0];
+					Session::set('url',$url[0]);
 					unset($url[0]);
+				}else{
+					return header('location:'.BASE_URL.'errors/404');
 				}
 			}
+
 			require_once '../app/controllers/'.$this->controller.'.php';
 			$this->controller = new $this->controller;
 

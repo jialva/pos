@@ -6,31 +6,31 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title><?=$date['titulo']?></title>
         <!-- Bootstrap framework -->
-            <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
-            <link rel="stylesheet" href="bootstrap/css/bootstrap-responsive.min.css" />
+            <link rel="stylesheet" href="<?=BASE_URL?>bootstrap/css/bootstrap.min.css" />
+            <link rel="stylesheet" href="<?=BASE_URL?>bootstrap/css/bootstrap-responsive.min.css" />
         <!-- gebo blue theme-->
-            <link rel="stylesheet" href="css/blue.css" id="link_theme" />
+            <link rel="stylesheet" href="<?=BASE_URL?>css/blue.css" id="link_theme" />
         <!-- breadcrumbs-->
-            <link rel="stylesheet" href="lib/jBreadcrumbs/css/BreadCrumb.css" />
+            <link rel="stylesheet" href="<?=BASE_URL?>lib/jBreadcrumbs/css/BreadCrumb.css" />
         <!-- tooltips-->
-            <link rel="stylesheet" href="lib/qtip2/jquery.qtip.min.css" />
+            <link rel="stylesheet" href="<?=BASE_URL?>lib/qtip2/jquery.qtip.min.css" />
         <!-- notifications -->
-            <link rel="stylesheet" href="lib/sticky/sticky.css" />
+            <link rel="stylesheet" href="<?=BASE_URL?>lib/sticky/sticky.css" />
         <!-- code prettify -->
-            <link rel="stylesheet" href="lib/google-code-prettify/prettify.css" />    
+            <link rel="stylesheet" href="<?=BASE_URL?>lib/google-code-prettify/prettify.css" />    
         <!-- notifications -->
-            <link rel="stylesheet" href="lib/sticky/sticky.css" />    
+            <link rel="stylesheet" href="<?=BASE_URL?>lib/sticky/sticky.css" />    
         <!-- splashy iconos -->
-            <link rel="stylesheet" href="img/splashy/splashy.css" />
+            <link rel="stylesheet" href="<?=BASE_URL?>img/splashy/splashy.css" />
         <!-- colorbox -->
-            <link rel="stylesheet" href="lib/colorbox/colorbox.css" />
+            <link rel="stylesheet" href="<?=BASE_URL?>lib/colorbox/colorbox.css" />
         <!-- stylos principales -->
-            <link rel="stylesheet" href="css/style.css" />          
+            <link rel="stylesheet" href="<?=BASE_URL?>css/style.css" />          
             <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans" />
             
-            <link rel="stylesheet" href="lib/smoke/themes/gebo.css" />
+            <link rel="stylesheet" href="<?=BASE_URL?>lib/smoke/themes/gebo.css" />
         <!-- Favicon -->
-            <link rel="shortcut icon" href="img/sw.ico" />
+            <link rel="shortcut icon" href="<?=BASE_URL?>img/sw.ico" />
         
         <!--[if lte IE 8]>
             <link rel="stylesheet" href="css/ie.css" />
@@ -38,11 +38,11 @@
             <script src="js/ie/respond.min.js"></script>
         <![endif]-->
 
-        <link rel="stylesheet" href="alertify/alertify.min.css"/>
-        <link rel="stylesheet" href="alertify/default.min.css"/>
-        <link href = "js/query/jquery-ui.css" rel = "stylesheet">        
-        <script src = "js/query/jquery-1.10.2.js"></script>
-        <script src = "js/query/jquery-ui.js"></script>
+        <link rel="stylesheet" href="<?=BASE_URL?>alertify/alertify.min.css"/>
+        <link rel="stylesheet" href="<?=BASE_URL?>alertify/default.min.css"/>
+        <link href = "<?=BASE_URL?>js/query/jquery-ui.css" rel = "stylesheet">        
+        <script src = "<?=BASE_URL?>js/query/jquery-1.10.2.js"></script>
+        <script src = "<?=BASE_URL?>js/query/jquery-ui.js"></script>
         <script type="text/javascript" src="<?=BASE_URL?>pagejs/funciones.js"></script>
 
         <?php if(count($js)>=1){

@@ -5,6 +5,15 @@
 			if(Session::get('autenticado')){
 				$this->rol = $this->model('rolModelo');
 				$this->menu();
+				$acc = $this->acceso(Session::get('idrol'),Session::get('idusuario'),Session::get('url'));
+				if(!$acc){
+					$this->redireccionar('errors/denegado');
+				}else{
+					$this->ver = $acc['ver'];
+					$this->editar = $acc['editar'];
+					$this->eliminar = $acc['eliminar'];
+					$this->crear = $acc['crear'];
+				}
 	      	}else{
 	       		$this->redireccionar();
 	      	}
@@ -42,11 +51,21 @@
                         $cad .='<tr>
                         			<td>'.$c.'</td>
 	                                <td>'.$row['rol'].'</td>
-	                                <td>
-	                                	<i title="Editar" class="splashy-application_windows_edit pointer" onclick="editar(\''.$row['idrol'].'\')"></i>
-	                                	<i title="Asignar rol" class="splashy-contact_blue_add pointer" onclick="magregarusuario(\''.$row['idrol'].'\')"></i>
-	                                	<i title="Eliminar rol" class="splashy-application_windows_remove pointer" onclick="meliminar(\''.$row['idrol'].'\')"></i>
-	                                </td>
+	                                <td>';
+	                                if($this->editar == 1){
+	                                	$cad .='<i title="Editar" class="splashy-application_windows_edit pointer" onclick="editar(\''.$row['idrol'].'\')"></i>';
+	                                }else{
+	                                	if($this->ver == 1){
+	                                		$cad .='<i title="Ver" class="splashy-zoom pointer" onclick="editar(\''.$row['idrol'].'\')"></i>';
+	                                	}
+	                                }
+	                                if($this->editar == 1){
+	                                	$cad .='<i title="Asignar rol" class="splashy-contact_blue_add pointer" onclick="magregarusuario(\''.$row['idrol'].'\')"></i>';
+	                                }	                                
+	                                if($this->eliminar == 1){
+	                                	$cad .='<i title="Eliminar rol" class="splashy-application_windows_remove pointer" onclick="meliminar(\''.$row['idrol'].'\')"></i>';
+	                                }		                                
+	                        $cad .='</td>
 	                            </tr>';
 	                            $c++;
                         }

@@ -5,6 +5,15 @@
 			if(Session::get('autenticado')){
 				$this->usuario = $this->model('usuarioModelo');
 				$this->menu();
+				$acc = $this->acceso(Session::get('idrol'),Session::get('idusuario'),Session::get('url'));
+				if(!$acc){
+					$this->redireccionar('errors/denegado');
+				}else{
+					$this->ver = $acc['ver'];
+					$this->editar = $acc['editar'];
+					$this->eliminar = $acc['eliminar'];
+					$this->crear = $acc['crear'];
+				}
 	      	}else{
 	       		$this->redireccionar();
 	      	}
@@ -15,7 +24,8 @@
 				'titulo'=>'Administrar Usuarios',
 				'nombretabla'=>'Administrar Usuarios',
 				'url'=> 'usuario',
-				'modulo'=> 'Seguridad'
+				'modulo'=> 'Seguridad',
+				'add'=> $this->ver
 			];
 			$js = [
 	      		'0'=>'usuario.js'
@@ -56,10 +66,18 @@
 	                                <td>'.$row['rol'].'</td>
 	                                <td>'.$row['telefono'].'</td>
 	                                <td>'.$row['email'].'</td>
-	                                <td>
-	                                	<i class="splashy-application_windows_edit pointer" onclick="editar(\''.$row['idusuario'].'\')"></i>
-	                                	<i class="splashy-application_windows_remove pointer" onclick="meliminar(\''.$row['idusuario'].'\')"></i>
-	                                </td>
+	                                <td>';
+	                                if($this->editar == 1){
+	                                	$cad .='<i class="splashy-application_windows_edit pointer" onclick="editar(\''.$row['idusuario'].'\')"></i>';
+	                                }else{
+	                                	if($this->ver == 1){
+	                                		$cad .='<i title="Ver" class="splashy-zoom pointer" onclick="editar(\''.$row['idusuario'].'\')"></i>';
+	                                	}
+	                                }
+	                                if($this->eliminar == 1){
+	                                	$cad .=' <i class="splashy-application_windows_remove pointer" onclick="meliminar(\''.$row['idusuario'].'\')"></i>';
+	                                }	                                
+	                            $cad .='</td>
 	                            </tr>';
 	                            $c++;
                         }

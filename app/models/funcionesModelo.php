@@ -116,5 +116,18 @@
 			return $id[0];
 		}
 
+		public function acceso($idrol,$idusuario,$url){
+			$this->db->query("SELECT p.idpermiso,m.url,p.ver,p.editar,p.eliminar,p.crear
+							FROM permisos p
+							INNER JOIN modulo m ON m.idmodulo=p.idmodulo
+							WHERE p.idrol=$idrol AND p.idusuario=$idusuario AND m.url='$url'");
+			$acc = $this->db->register();
+			if(empty($acc)){
+				return false;
+			}else{
+				return $acc;
+			}
+		}
+
 	}
 ?>
