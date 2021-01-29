@@ -51,7 +51,7 @@
 	    public function select($tabla,$campo,$idtabla,$estado,$sql,$select = false){
 			$this->selectModel = $this->model('funcionesModelo');
 			$sel = $this->selectModel->select($tabla,$estado,$sql);
-			$com = '<option value="0">--Seleccionar--</option>';
+			$com = '<option value="0">--SELECCIONE--</option>';
 			if(!empty($sel)){
 				foreach ($sel as $row) {
 					if($select){
