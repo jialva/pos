@@ -18,8 +18,8 @@
 	      	return $this->db->registers();
 		}
 
-		public function verregistro($idproveedor){
-			$this->db->query("SELECT * FROM producto WHERE idproveedor = $idproveedor");
+		public function verregistro($idproducto){
+			$this->db->query("SELECT * FROM producto WHERE idproducto = $idproducto");
 	      	return $this->db->register();
 		}
 
@@ -29,7 +29,8 @@
 				$and = ' AND idproducto<>'.$idproducto;
 			}
 		    $this->db->query("SELECT * FROM producto WHERE producto='$producto' AND idcategoria=$idcategoria AND idunidad=$idunidad AND idmarca=$idmarca AND idmodelo=$idmodelo AND codemp=$codemp $and");
-		    if(empty($this->db->register())){
+			$item = $this->db->register();
+			if(empty($item)){
 		    	if($serie !=''){
 		    		$this->db->query("SELECT * FROM producto WHERE serie='$serie' AND idcategoria=$idcategoria AND codemp=$codemp $and");
 		    		if(empty($this->db->register())){

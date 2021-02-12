@@ -64,9 +64,33 @@ function guardar(){
 	})
 }
 
-function modelo(){
+function modelo(idmodelo = false){
 	var idmarca = $("#idmarca").val();
-	$.post(url +"marcamodelo/select_modelo",{idmarca:idmarca},function(data){$("#idmodelo").html(data)});
+	$.post(url +"marcamodelo/select_modelo",{idmarca:idmarca,idmodelo:idmodelo},function(data){$("#idmodelo").html(data)});
+}
+
+function editar(idproducto){
+	$.ajax({
+		url:url+'productos/verregistro',
+		type:'post',
+		data:{idproducto:idproducto},
+		dataType:'json',
+		success:function(response){
+			$("#idproducto").val(idproducto);
+			$("#idcategoria").val(response.idcategoria);
+			$("#idunidad").val(response.idunidad);
+			$("#idmarca").val(response.idmarca)
+			modelo(response.idmodelo);
+			$("#producto").val(response.producto);
+			$("#serie").val(response.serie);
+			$("#minimo").val(response.minimo);
+			$("#stock").val(response.stock);
+			$("#precioventa_uno").val(response.precioventa_uno);
+			$("#precioventa_dos").val(response.precioventa_dos);
+			$("#precioventa_tres").val(response.precioventa_tres);
+			modal('myModal1','open');
+		}
+	})
 }
 
 function limpiar(){

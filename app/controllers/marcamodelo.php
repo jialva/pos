@@ -243,7 +243,8 @@
 		public function select_modelo(){
 			$codemp = 1;
 			$idmarca = $_POST['idmarca'];
-			$modelo = $this->select('modelo','modelo','idmodelo',1,' AND idmarca='.$idmarca.' AND codemp='.$codemp);
+			$idmodelo = $_POST['idmodelo'];
+			$modelo = $this->select('modelo','modelo','idmodelo',1,' AND idmarca='.$idmarca.' AND codemp='.$codemp,$idmodelo);
 			echo $modelo;
 		}
 	}

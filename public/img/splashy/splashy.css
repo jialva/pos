@@ -1,4 +1,8 @@
-[class^="splashy-"],[class*=" splashy-"] {margin-top:-1px;position:relative;display: inline-block;width: 16px;height: 16px;line-height: 16px;vertical-align: text-top;background-image: url("splashy.png");background-repeat: no-repeat;*margin-right: .3em}
+[class^="splashy-"],[class*=" splashy-"] {
+	margin-top:-1px;position:relative;display: inline-block;width: 16px;
+	height: 16px;line-height: 16px;
+	vertical-align: text-top;background-image: url("splashy.png");
+	background-repeat: no-repeat;*margin-right: .3em}
 [class^="splashy-"]:last-child,[class*=" splashy-"]:last-child {*margin-left: 0 }
 .splashy-add{ background-position: 0 0} 
 .splashy-add_outline{ background-position: 0 -21px} 

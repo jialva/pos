@@ -54,7 +54,7 @@
                                 <th>MODELO</th>
                                 <th>UNI. MEDIDA</th>
                                 <th>STOCK</th>
-                                <th>ACCI&oacute;N</th>
+                                <th>ACCI&Oacute;N</th>
                             </tr>
                         </thead>
                         <tbody>';
@@ -187,18 +187,20 @@
 		}
 
 		public function verregistro(){
-			$idproveedor = $_POST['idproveedor'];
-			$sql = $this->proveedores->verregistro($idproveedor);
+			$idproducto = $_POST['idproducto'];
+			$sql = $this->productos->verregistro($idproducto);
 			$arr =[
-					'idproveedor'=>$sql['idproveedor'],
-					'tipo'=>$sql['tipo'],
-					'ruc'=>$sql['ruc'],
-					'razonsocial'=>$sql['razonsocial'],
-					'nombrecomercial'=>$sql['nombrecomercial'],
-					'telefono'=>$sql['telefono'],
-					'email'=>$sql['email'],
-					'direccion'=>$sql['direccion'],
-					'estado'=>$sql['estado']
+					'idmarca'=>$sql['idmarca'],
+					'idmodelo'=>$sql['idmodelo'],
+					'idunidad'=>$sql['idunidad'],
+					'idcategoria'=>$sql['idcategoria'],
+					'producto'=>$sql['producto'],
+					'serie'=>$sql['serie'],
+					'stock'=>$sql['stock'],
+					'minimo'=>$sql['minimo'],
+					'precioventa_uno'=>$sql['precioventa_uno'],
+					'precioventa_dos'=>$sql['precioventa_dos'],
+					'precioventa_tres'=>$sql['precioventa_tres']
 				];
 			echo json_encode($arr);
 		}

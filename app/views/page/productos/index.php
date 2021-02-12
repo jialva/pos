@@ -47,7 +47,7 @@
             </div>
             <div class="row-fluid">
                 <div class="span12">
-                    <label>SERIE</label>
+                    <label>C&Oacute;DIGO/SERIE</label>
                     <input type="" class="span12" id="serie" name="serie" />
                 </div>
             </div>
