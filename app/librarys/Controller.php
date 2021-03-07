@@ -94,6 +94,15 @@
 	      }
 	    }
 
+	    protected function librerias($libreria){
+	      $rutaLibreria = $_SERVER['DOCUMENT_ROOT'].BASE_URL.'library/'.$libreria.'.php';
+	      if(is_readable($rutaLibreria)){
+	        require_once $rutaLibreria;
+	      }else{
+	        throw new Exception("Error de la Librería");
+	      }
+	    }
+
 	    protected function img($img){
 	    	//$rutaImg = $_SERVER['DOCUMENT_ROOT'].'/public/'.$img;
 	      $rutaImg = $_SERVER['DOCUMENT_ROOT'].BASE_URL.'public/'.$img;

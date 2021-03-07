@@ -1,7 +1,10 @@
 				</div>
             </div>
+            <div id="bloquea" class="cargando" style="display:none;">
+			    <img style="margin-left: 5%;margin-top: 15%" width="60" src="<?=BASE_URL?>img/ajax_loader.gif" />
+			    <label style="text-color: #000000;">Cargando</label>
+			</div>
             
-            <script src="<?=BASE_URL?>js/jquery.min.js"></script>
 			<script src="<?=BASE_URL?>js/jquery.debouncedresize.min.js"></script>
 			<script src="<?=BASE_URL?>js/jquery.actual.min.js"></script>
 			<script src="<?=BASE_URL?>js/jquery.cookie.min.js"></script>

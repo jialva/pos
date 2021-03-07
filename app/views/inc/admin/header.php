@@ -25,7 +25,8 @@
         <!-- colorbox -->
             <link rel="stylesheet" href="<?=BASE_URL?>lib/colorbox/colorbox.css" />
         <!-- stylos principales -->
-            <link rel="stylesheet" href="<?=BASE_URL?>css/style.css" />          
+            <link rel="stylesheet" href="<?=BASE_URL?>css/style.css" />
+            <link rel="stylesheet" href="<?=BASE_URL?>css/propio.css" />          
             <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans" />
             
             <link rel="stylesheet" href="<?=BASE_URL?>lib/smoke/themes/gebo.css" />
@@ -42,7 +43,9 @@
         <link rel="stylesheet" href="<?=BASE_URL?>alertify/default.min.css"/>
         <link href = "<?=BASE_URL?>js/query/jquery-ui.css" rel = "stylesheet">        
         <script src = "<?=BASE_URL?>js/query/jquery-1.10.2.js"></script>
+        <script src="<?=BASE_URL?>js/jquery.min.js"></script>
         <script src = "<?=BASE_URL?>js/query/jquery-ui.js"></script>
+
         <script type="text/javascript" src="<?=BASE_URL?>pagejs/funciones.js"></script>
 
         <?php if(count($js)>=1){
@@ -53,6 +56,7 @@
 
         <script>
             var url = "<?=BASE_URL?>";
+            var pagina = "<?=Session::get('url')?>";
         </script>
         
         <script>
@@ -60,7 +64,8 @@
             document.documentElement.className += 'js';
         </script>
     </head>
-    <body>      
+    <body>
+        <div id="loading_layer" style="display:none"><img src="img/ajax_loader.gif" alt="" /></div>
         <div id="maincontainer" class="clearfix">
             <!-- header -->
             <header>
